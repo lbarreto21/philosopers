@@ -2,18 +2,16 @@ CC = cc
 
 CFLAGS =  -g -Wall -Werror -Wextra 
 
-SRCS = 
+SRCS = philo.c set_dinner.c utils.c
 
 NAME = philo
-
-LIB = libft/libft.a
 
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIB)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) 
 
 .c.o:
 	$(CC) -c $< -o $@

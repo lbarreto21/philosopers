@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:39:36 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/03/13 15:17:00 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/03/19 19:43:12 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,23 @@ int	ft_atol(char *nptr)
 	return (nbr * n);
 }
 
-long	get_time_in_ms(void)
+long	execution_time(long start_time)
 {
 	struct timeval	time;
-	long				time_in_ms;
+	long			time_in_ms;
 
 	if (gettimeofday(&time, NULL) == 0)
 	{
-		time_in_ms = time.tv_sec * 1000;
+		time_in_ms = (time.tv_sec - start_time) * 1000;
 		return (time_in_ms);
 	}
 	return (-1);
+}
+
+long	get_start_time(void)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return (time.tv_usec / 1000);
 }
