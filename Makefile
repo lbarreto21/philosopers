@@ -2,7 +2,7 @@ CC = cc
 
 CFLAGS =  -g -Wall -Werror -Wextra 
 
-SRCS = philo.c set_dinner.c utils.c
+SRCS = philo.c set_dinner.c utils.c verifications.c
 
 NAME = philo
 

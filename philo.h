@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 14:59:01 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/03/19 19:40:43 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:39:14 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,13 @@
 
 # define TRUE 1
 # define FALSE 0
+# define LONG_MAX 2147483647
+# define LONG_MIN -2147483648
 
 enum	e_errors {
 	MUTEX_INIT,
+	PHILO_AMOUNT,
+	
 	
 };
 
@@ -51,11 +55,15 @@ typedef struct	s_data {
 	t_fork 			*forks;
 } t_data;
 
-long	execution_time(long start_time);
-time_t	get_start_time(void);
-int		ft_atol(char *nptr);
-t_fork	*init_forks(int forks_amount);
-t_philo	*init_philos(int philos_amount, t_fork *forks);
-t_data	init_data(int argc, char **argv);
-
+long		execution_time(long start_time);
+time_t		get_start_time(void);
+long long	ft_atoll(char *nptr);
+t_fork		*init_forks(int forks_amount);
+t_philo		*init_philos(int philos_amount, t_fork *forks);
+t_data		init_data(int argc, char **argv);
+int			arguments_verification(int argc, char **argv);
+int			range_verification(int argc, char **argv);
+int			ft_strlen(char *str);
+void		ft_putstr_fd(char *s, int fd);
+int			handle_error(int error_id);
 #endif

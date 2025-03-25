@@ -6,17 +6,17 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:39:36 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/03/19 19:43:12 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:26:01 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_atol(char *nptr)
+long long	ft_atoll(char *nptr)
 {
-	long	nbr;
-	int		i;
-	int		n;
+	long long	nbr;
+	int			i;
+	long long	n;
 
 	nbr = 0;
 	i = 0;
@@ -58,4 +58,19 @@ long	get_start_time(void)
 
 	gettimeofday(&time, NULL);
 	return (time.tv_usec / 1000);
+}
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while(str[i])
+		i++;
+	return (i);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	write(fd, s, ft_strlen(s));
 }

@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:55:04 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/03/19 19:43:05 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/03/25 15:23:20 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ t_data	init_data(int argc, char **argv)
 	t_data	data;
 
 	data.start_time = get_start_time();
-	data.philos_amount = (int)ft_atol(argv[1]);
+	data.philos_amount = (int)ft_atoll(argv[1]);
 	data.forks = init_forks(data.philos_amount);
-	data.die_time = ft_atol(argv[2]);
-	data.eat_time = ft_atol(argv[3]);
-	data.sleep_time = ft_atol(argv[4]);
+	data.die_time = (long)ft_atoll(argv[2]);
+	data.eat_time = (long)ft_atoll(argv[3]);
+	data.sleep_time = (long)ft_atoll(argv[4]);
 	if (argc == 6)
-		data.meals_to_eat = (int)ft_atol(argv[5]);
+		data.meals_to_eat = (int)ft_atoll(argv[5]);
 	else
 		data.meals_to_eat = -1;
 	data.philos = init_philos(data.philos_amount, data.forks);
