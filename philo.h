@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 14:59:01 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/03/25 15:39:14 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/03/26 16:46:36 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,18 @@
 # define LONG_MIN -2147483648
 
 enum	e_errors {
-	MUTEX_INIT,
+	MUTEX_INIT = 2,
 	PHILO_AMOUNT,
-	
-	
+	TIME_AMOUNT,
+	LONG_RANGE,
+	INVALID_CHARACTER,
+	WRONG_ARGUMENTS
 };
 
 typedef struct s_philo {
 	int	philo_id;
 	int	meals_count;
+	pthread_t philo_thread;
 	pthread_mutex_t *left_fork;
 	pthread_mutex_t *right_fork;
 } t_philo;
@@ -53,6 +56,7 @@ typedef struct	s_data {
 	int				meals_to_eat;
 	t_philo			*philos;
 	t_fork 			*forks;
+	pthread_mutex_t	print_mutex;
 } t_data;
 
 long		execution_time(long start_time);
@@ -66,4 +70,7 @@ int			range_verification(int argc, char **argv);
 int			ft_strlen(char *str);
 void		ft_putstr_fd(char *s, int fd);
 int			handle_error(int error_id);
+int			invalid_arguments_verification(char **argv);
+int			execute_verifications(int argc, char **argv);
+
 #endif

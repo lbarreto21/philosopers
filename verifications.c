@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 14:35:21 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/03/25 15:48:49 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/03/26 16:23:47 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	arguments_verification(int argc, char **argv)
 		while (argv[i][j])
 		{
 			if (argv[i][j] < '0' || argv[i][j] > '9')
-				return (0);
+				return (handle_error(INVALID_CHARACTER));
 			j++;
 		}
 		i++;
@@ -44,7 +44,7 @@ int	range_verification(int argc, char **argv)
 	{
 		number = ft_atoll(argv[i]);
 		if (number < 1 || number > LONG_MAX)
-			return (0);
+			return (handle_error(LONG_RANGE));
 		i++;
 	}
 	return (1);
@@ -64,5 +64,24 @@ int	invalid_arguments_verification(char **argv)
 		i++;
 	}
 	return (1);
+}
+
+int	execute_verifications(int argc, char **argv)
+{
+	if (argc >= 5 && argc <= 6)
+	{
+		if (arguments_verification(argc, argv) != 1)
+			return (0);
+		if (range_verification(argc, argv) != 1)
+			return (0);
+		if (invalid_arguments_verification(argv) != 1)
+			return (0);
+		return (1);
+	}
+	else
+	{
+		handle_error(WRONG_ARGUMENTS);
+		return (0);
+	}
 }
 
