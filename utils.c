@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:39:36 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/03/25 15:26:01 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/03/28 18:39:49 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ long	execution_time(long start_time)
 
 	if (gettimeofday(&time, NULL) == 0)
 	{
-		time_in_ms = (time.tv_sec - start_time) * 1000;
+		time_in_ms = (time.tv_usec / 1000) - start_time;
 		return (time_in_ms);
 	}
 	return (-1);

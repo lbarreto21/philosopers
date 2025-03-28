@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 14:59:01 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/03/26 16:46:36 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/03/28 18:28:14 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_philo {
 	pthread_t philo_thread;
 	pthread_mutex_t *left_fork;
 	pthread_mutex_t *right_fork;
+	t_data *data;
 } t_philo;
 
 typedef struct s_fork {
