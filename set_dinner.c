@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:55:04 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/03/28 18:29:02 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/03/29 19:05:13 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,25 @@ t_philo	*init_philos(int philos_amount, t_fork *forks, t_data *data)
 	t_philo *philos;
 	int		i;
 
-	i = 0;
+	i = -1;
 	philos = (t_philo *)malloc(philos_amount * sizeof(t_philo));
 	if (!philos)
 		return (NULL);
-	while (i < philos_amount)
+	while (++i < philos_amount)
 	{
 		philos[i].philo_id = i + 1;
 		philos[i].meals_count = 0;
 		if (i % 2 == 0)
 		{
-			philos[i].left_fork = &forks[i].fork_mutex;
-			philos[i].right_fork = &forks[(i + 1) % philos_amount].fork_mutex;
+			philos[i].left_fork = &forks[i];
+			philos[i].right_fork = &forks[(i + 1) % philos_amount];
 		}
 		else
 		{
-			philos[i].left_fork = &forks[(i + 1) % philos_amount].fork_mutex;
-			philos[i].right_fork = &forks[i].fork_mutex;
+			philos[i].left_fork = &forks[(i + 1) % philos_amount];
+			philos[i].right_fork = &forks[i];
 		}
 		philos[i].data = data;
-		i++;
 	}
 	return (philos);
 }
@@ -79,7 +78,10 @@ t_data	init_data(int argc, char **argv)
 	else
 		data.meals_to_eat = -1;
 	data.philos = init_philos(data.philos_amount, data.forks, &data);
-	pthread_mutex_init(&data.print_mutex, NULL);
+	if (pthread_mutex_init(&data.print_mutex, NULL) != 0)
+		handle_error(MUTEX_INIT);
+	if (pthread_mutex_init(&data.exec_mutex, NULL) != 0)
+		handle_error(MUTEX_INIT);
 
 	return (data);
 }
@@ -88,9 +90,12 @@ void	init_threads(t_data *data)
 {
 	int	i;
 
+	i = 0;
 	while (i < data->philos_amount)
 	{
-		pthread_create(&data->philos[i].philo_thread, NULL, eating_routine, &data->philos[i]);
+		printf("Entrou no while pra criar thread\n");
+		if (pthread_create(&data->philos[i].philo_thread, NULL, eating_routine, &data->philos[i]) == 0)
+			printf("Criou a thread %d\n", i);
 		i++;
 	}
 }
