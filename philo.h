@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 14:59:01 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/03/29 18:55:38 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/03/30 14:11:09 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 
 # define TRUE 1
 # define FALSE 0
+# define LEFT 0
+# define RIGHT 1
 # define LONG_MAX 2147483647
 # define LONG_MIN -2147483648
 
@@ -62,6 +64,7 @@ struct	s_data {
 	t_fork 			*forks;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	exec_mutex;
+	int				philo_dead;
 };
 
 struct s_philo {

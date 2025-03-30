@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 15:26:12 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/03/28 18:44:31 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/03/30 14:05:32 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,18 @@ numbers_of_philosopers time_to_die time_to_eat time_to_sleep \
 void	print_message(int message, t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->print_mutex);
-	if (message == TAKE_FORK)
+	if (message == TAKE_FORK && philo->data->philo_dead == 0)
 		printf("%ld philo %d has taken a fork\n", execution_time(philo->data->start_time), philo->philo_id);
-	if (message == EAT)
+	if (message == EAT && philo->data->philo_dead == 0)
 		printf("%ld philo %d is eating\n", execution_time(philo->data->start_time), philo->philo_id);	
-	if (message == SLEEP)
+	if (message == SLEEP && philo->data->philo_dead == 0)
 		printf("%ld philo %d is sleeping\n", execution_time(philo->data->start_time), philo->philo_id);
-	if (message == THINK)
+	if (message == THINK && philo->data->philo_dead == 0)
 		printf("%ld philo %d thinking\n", execution_time(philo->data->start_time), philo->philo_id);
-	if (message == DIE)
+	if (message == DIE && philo->data->philo_dead == 0)
+	{
 		printf("%ld philo %d died\n", execution_time(philo->data->start_time), philo->philo_id);
+		philo->data->philo_dead = 1;
+	}
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }
