@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 14:59:01 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/03/30 14:11:09 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/03/30 19:34:29 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,13 @@ struct	s_data {
 };
 
 struct s_philo {
-	int	philo_id;
-	int	meals_count;
-	pthread_t philo_thread;
-	t_fork *left_fork;
-	t_fork *right_fork;
-	t_data *data;
+	long		last_meal;
+	int			philo_id;
+	int			meals_count;
+	pthread_t	philo_thread;
+	t_fork		*left_fork;
+	t_fork		*right_fork;
+	t_data		*data;
 };
 
 
@@ -93,5 +94,6 @@ int			execute_verifications(int argc, char **argv);
 void		print_message(int message, t_philo *philo);
 void		*eating_routine(void *data);
 void		init_threads(t_data *data);
+void		take_forks(t_philo *philo, int side);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:55:04 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/03/30 14:12:45 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/03/30 19:30:51 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_philo	*init_philos(int philos_amount, t_fork *forks, t_data *data)
 	{
 		philos[i].philo_id = i + 1;
 		philos[i].meals_count = 0;
+		philos[i].last_meal = 0;
 		if (i % 2 == 0)
 		{
 			philos[i].left_fork = &forks[i];
