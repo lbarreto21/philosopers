@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:45:16 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/03/30 19:34:47 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/01 20:29:12 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,14 @@ void	execute_action(t_philo *philo, int action)
 		philo->last_meal = execution_time(philo->data->start_time);
 		pthread_mutex_unlock(&philo->data->exec_mutex);
 		print_message(EAT, philo);
-		usleep(philo->data->eat_time * 1000);
+		ft_usleep(philo->data->eat_time, philo->data);
+		pthread_mutex_unlock(&philo->left_fork->fork_mutex);
+		pthread_mutex_unlock(&philo->right_fork->fork_mutex);
 	}
 	if (action == SLEEP)
 	{
 		print_message(SLEEP, philo);
-		usleep(philo->data->sleep_time * 1000);
+		ft_usleep(philo->data->sleep_time, philo->data);
 	}
 }
 
@@ -61,10 +63,13 @@ void	*eating_routine(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	take_forks(philo, LEFT);
-	take_forks(philo, RIGHT);
-	//execute_action(philo, EAT);
-	//execute_action(philo, SLEEP);
+	while (1)
+	{
+		take_forks(philo, LEFT);
+		take_forks(philo, RIGHT);
+		execute_action(philo, EAT);
+		execute_action(philo, SLEEP);
+	}
 	return (NULL);
 }
 

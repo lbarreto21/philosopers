@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:39:36 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/03/28 18:39:49 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/01 20:23:01 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,9 @@ long long	ft_atoll(char *nptr)
 long	execution_time(long start_time)
 {
 	struct timeval	time;
-	long			time_in_ms;
 
-	if (gettimeofday(&time, NULL) == 0)
-	{
-		time_in_ms = (time.tv_usec / 1000) - start_time;
-		return (time_in_ms);
-	}
-	return (-1);
+	gettimeofday(&time, NULL);
+	return ((time.tv_sec * 1000 + time.tv_usec / 1000) - start_time);
 }
 
 long	get_start_time(void)
@@ -57,7 +52,7 @@ long	get_start_time(void)
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
-	return (time.tv_usec / 1000);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
 int	ft_strlen(char *str)
