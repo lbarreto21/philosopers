@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 14:59:01 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/02 17:27:19 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:33:16 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,6 @@ void		print_message(int message, t_philo *philo);
 void		*eating_routine(void *data);
 void		init_threads(t_data *data);
 void		take_forks(t_philo *philo, int side);
-void		ft_usleep(long time, t_data *data);
+void		ft_usleep(long time);
 
 #endif

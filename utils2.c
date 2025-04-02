@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 15:26:12 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/02 16:13:43 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:34:00 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	print_message(int message, t_philo *philo)
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }
 
-void	ft_usleep(long time, t_data *data)
+/*void	ft_usleep(long time, t_data *data)
 {
 	long	start_time;
 
@@ -61,10 +61,9 @@ void	ft_usleep(long time, t_data *data)
 	start_time = get_start_time();
 	while ((get_start_time() - start_time) < time)
 	{
-		/*Verificação se a execução terminou*/
 		//if ()
 			//break;
-		usleep(200);
+		//usleep(200);
 	
 		//else
 		//{
@@ -73,5 +72,18 @@ void	ft_usleep(long time, t_data *data)
 				//usleep(1);
 			//}
 		//}
+//	}*/
+
+void	ft_usleep(long time)
+{
+	long	finish_time;
+	long	current_time;
+
+	current_time = get_start_time();
+	finish_time = current_time + time;
+	while (current_time < finish_time)
+	{
+		usleep(((finish_time - current_time) * 1000) / 2);
+		current_time = get_start_time();
 	}
 }
