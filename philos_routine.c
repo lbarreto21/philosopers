@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:45:16 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/02 16:16:33 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:00:31 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,14 @@ void	*eating_routine(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	if (philo->philo_id % 2 == 0)
-		usleep (2000);
+	/*
+	pthread_mutex_lock(&philo->philo_mutex);
+	philo->data->threads_ready++;
+	pthread_mutex_unlock(&philo->philo_mutex);
+	while (philo->data->threads_ready != philo->data->philos_amount)
+		; */
+	//if (philo->philo_id % 2 == 0)
+	//	usleep (2000);
 	while (1)
 	{
 		take_forks(philo, LEFT);
@@ -78,29 +84,3 @@ void	*eating_routine(void *data)
 	}
 	return (NULL);
 }
-
-/* void	*backup_eating_routine(void *data)
-{
-    t_philo *philo;
-
-    philo = (t_philo *)data;
-	pthread_mutex_lock(&philo->data->exec_mutex);
-    if (philo->left_fork->fork_lock == 0)
-    {
-        philo->left_fork->fork_lock = 1;
-        pthread_mutex_lock(&philo->left_fork->fork_mutex);
-        print_message(TAKE_FORK, philo);
-    }
-    pthread_mutex_unlock(&philo->data->exec_mutex);
-    pthread_mutex_lock(&philo->data->exec_mutex);
-    if (philo->right_fork->fork_lock == 0)
-    {
-        philo->right_fork->fork_lock = 1;
-        pthread_mutex_lock(&philo->right_fork->fork_mutex);
-        print_message(TAKE_FORK, philo);
-    }
-    pthread_mutex_unlock(&philo->data->exec_mutex);
-    return (NULL);
-}
-
- */

@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 14:59:01 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/02 16:16:07 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/02 17:27:19 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,19 @@ struct	s_data {
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	death_mutex;
 	pthread_mutex_t eat_mutex;
+	int				threads_ready;
 	int				philo_dead;
 };
 
 struct s_philo {
-	long		last_meal;
-	int			philo_id;
-	int			meals_count;
-	pthread_t	philo_thread;
-	t_fork		*left_fork;
-	t_fork		*right_fork;
-	t_data		*data;
+	long			last_meal;
+	int				philo_id;
+	int				meals_count;
+	pthread_t		philo_thread;
+	pthread_mutex_t	philo_mutex;
+	t_fork			*left_fork;
+	t_fork			*right_fork;
+	t_data			*data;
 };
 
 

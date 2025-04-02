@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:55:04 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/02 16:18:08 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/02 17:51:13 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ t_philo	*init_philos(int philos_amount, t_fork *forks, t_data *data)
 
 	i = -1;
 	philos = (t_philo *)malloc(philos_amount * sizeof(t_philo));
-	if (!philos)
-		return (NULL);
 	while (++i < philos_amount)
 	{
 		philos[i].philo_id = i + 1;
@@ -37,6 +35,7 @@ t_philo	*init_philos(int philos_amount, t_fork *forks, t_data *data)
 			philos[i].right_fork = &forks[i];
 		}
 		philos[i].data = data;
+		pthread_mutex_init(&philos[i].philo_mutex, NULL);
 	}
 	return (philos);
 }
@@ -83,6 +82,7 @@ t_data	init_data(int argc, char **argv)
 	pthread_mutex_init(&data.death_mutex, NULL);
 	pthread_mutex_init(&data.eat_mutex, NULL);
 	data.start_time = get_start_time();
+	data.threads_ready = 0;
 	return (data);
 }
 
