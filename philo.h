@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 14:59:01 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/01 20:04:04 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:16:07 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ struct	s_data {
 	t_philo			*philos;
 	t_fork 			*forks;
 	pthread_mutex_t	print_mutex;
-	pthread_mutex_t	exec_mutex;
+	pthread_mutex_t	death_mutex;
+	pthread_mutex_t eat_mutex;
 	int				philo_dead;
 };
 

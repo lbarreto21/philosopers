@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:55:04 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/03/30 19:30:51 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:18:08 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ t_data	init_data(int argc, char **argv)
 {
 	t_data	data;
 
-	data.start_time = get_start_time();
 	data.philo_dead = FALSE;
 	data.philos_amount = (int)ft_atoll(argv[1]);
 	data.forks = init_forks(data.philos_amount);
@@ -81,7 +80,9 @@ t_data	init_data(int argc, char **argv)
 		data.meals_to_eat = -1;
 	data.philos = init_philos(data.philos_amount, data.forks, &data);
 	pthread_mutex_init(&data.print_mutex, NULL);
-	pthread_mutex_init(&data.exec_mutex, NULL);
+	pthread_mutex_init(&data.death_mutex, NULL);
+	pthread_mutex_init(&data.eat_mutex, NULL);
+	data.start_time = get_start_time();
 	return (data);
 }
 
