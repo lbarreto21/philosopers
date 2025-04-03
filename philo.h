@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 14:59:01 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/02 18:33:16 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/02 21:12:16 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ struct	s_data {
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	death_mutex;
 	pthread_mutex_t eat_mutex;
-	int				threads_ready;
+	int				philos_sated;
 	int				philo_dead;
 };
 
@@ -98,6 +98,6 @@ void		print_message(int message, t_philo *philo);
 void		*eating_routine(void *data);
 void		init_threads(t_data *data);
 void		take_forks(t_philo *philo, int side);
-void		ft_usleep(long time);
+void		ft_usleep(long time, t_data *data);
 
 #endif

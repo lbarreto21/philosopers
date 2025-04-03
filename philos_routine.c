@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:45:16 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/02 18:00:31 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/02 21:21:55 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,38 @@ void    take_forks(t_philo *philo, int side)
 {
 	if (side == LEFT)
 	{
-		//pthread_mutex_lock(&philo->data->death_mutex);
+		pthread_mutex_lock(&philo->data->death_mutex);
 		if (philo->data->philo_dead == TRUE)
 			{
 				pthread_mutex_unlock(&philo->data->death_mutex);
 				return;
 			}
+		pthread_mutex_unlock(&philo->data->death_mutex);
 		pthread_mutex_lock(&philo->left_fork->fork_mutex);
 		print_message(TAKE_FORK, philo);
-		//pthread_mutex_unlock(&philo->data->death_mutex);
 	}
 	else if (side == RIGHT)
 	{
-		//pthread_mutex_lock(&philo->data->death_mutex);
+		pthread_mutex_lock(&philo->data->death_mutex);
 		if (philo->data->philo_dead == TRUE)
 		{
 				pthread_mutex_unlock(&philo->data->death_mutex);
 				return;
 		}
+		pthread_mutex_unlock(&philo->data->death_mutex);
 		pthread_mutex_lock(&philo->right_fork->fork_mutex);
 		print_message(TAKE_FORK, philo);
-		//pthread_mutex_unlock(&philo->data->death_mutex);
 	}
 }
 void	execute_action(t_philo *philo, int action)
 {
+	/* pthread_mutex_lock(&philo->data->eat_mutex);
+	if (philo->data->philo_dead == 1 || philo->data->philos_sated == philo->data->philos_amount)
+	{
+		pthread_mutex_unlock(&philo->data->eat_mutex);
+		return ;
+	}
+	pthread_mutex_lock(&philo->data->eat_mutex); */
 	if (action == EAT)
 	{
 		pthread_mutex_lock(&philo->data->eat_mutex);
@@ -66,14 +73,8 @@ void	*eating_routine(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	/*
-	pthread_mutex_lock(&philo->philo_mutex);
-	philo->data->threads_ready++;
-	pthread_mutex_unlock(&philo->philo_mutex);
-	while (philo->data->threads_ready != philo->data->philos_amount)
-		; */
-	//if (philo->philo_id % 2 == 0)
-	//	usleep (2000);
+	if (philo->philo_id % 2 == 0)
+		usleep (2000);
 	while (1)
 	{
 		take_forks(philo, LEFT);
