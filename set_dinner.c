@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:55:04 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/02 21:05:33 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/09 19:37:38 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ t_data	init_data(int argc, char **argv)
 	pthread_mutex_init(&data.print_mutex, NULL);
 	pthread_mutex_init(&data.death_mutex, NULL);
 	pthread_mutex_init(&data.eat_mutex, NULL);
+	pthread_mutex_init(&data.verify_mutex, NULL);
 	data.start_time = get_start_time();
 	data.philos_sated = 0;
 	return (data);
@@ -96,4 +97,5 @@ void	init_threads(t_data *data)
 		pthread_create(&data->philos[i].philo_thread, NULL, eating_routine, &data->philos[i]);
 		i++;
 	}
+	pthread_create(&data->monitor_thread, NULL, monitor, data);
 }

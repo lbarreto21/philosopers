@@ -7,7 +7,8 @@ set_dinner.c \
 utils.c \
 verifications.c \
 utils2.c \
-philos_routine.c
+philos_routine.c \
+monitoring.c
 
 NAME = philo
 
