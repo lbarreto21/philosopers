@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 14:58:49 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/02 16:18:06 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/09 20:25:48 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,7 @@ int	main(int argc, char **argv)
  		pthread_join(data.philos[i].philo_thread, NULL);
  		i++;
  	}
+	pthread_join(data.monitor_thread, NULL);
+	destroy_mutex(&data);
+	destroy_data(&data);
 }

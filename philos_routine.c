@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:45:16 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/09 19:08:35 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/09 21:00:14 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	take_forks(t_philo *philo, int side)
 		if (philo->data->philo_dead == TRUE)
 		{
 				pthread_mutex_unlock(&philo->data->death_mutex);
+				pthread_mutex_unlock(&philo->left_fork->fork_mutex);
 				return;
 		}
 		pthread_mutex_unlock(&philo->data->death_mutex);
@@ -56,7 +57,8 @@ void	eat_action(t_philo *philo)
 void    execute_forks(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->verify_mutex);
-	if (philo->data->philo_dead == 1 || philo->data->philos_sated == philo->data->philos_amount)
+	if (philo->data->philo_dead == TRUE || \
+	philo->data->philos_sated == philo->data->philos_amount)
 	{
 		pthread_mutex_unlock(&philo->data->verify_mutex);
 		return ;
@@ -68,16 +70,15 @@ void    execute_forks(t_philo *philo)
 void	execute_action(t_philo *philo, int action)
 {
 	pthread_mutex_lock(&philo->data->verify_mutex);
-	if (philo->data->philo_dead == 1 || philo->data->philos_sated == philo->data->philos_amount)
+	if (philo->data->philo_dead == TRUE || \
+	philo->data->philos_sated == philo->data->philos_amount)
 	{
 		pthread_mutex_unlock(&philo->data->verify_mutex);
 		return ;
 	}
 	pthread_mutex_unlock(&philo->data->verify_mutex);
 	if (action == EAT)
-	{
 		eat_action(philo);
-	}
 	if (action == SLEEP)
 	{
 		print_message(SLEEP, philo);
@@ -94,12 +95,13 @@ void	*eating_routine(void *data)
 	philo = (t_philo *)data;
 	if (philo->philo_id % 2 == 0)
 		usleep (2000);
-	while (philo->meals_count != philo->data->meals_to_eat)
+	while (philo->meals_count != philo->data->meals_to_eat && philo->data->philo_dead == FALSE)
 	{
 		execute_forks(philo);
 		execute_action(philo, EAT);
 		execute_action(philo, SLEEP);
 		execute_action(philo, THINK);
 	}
+	printf("final de thread philos sated: %d\n", philo->data->philos_sated);
 	return (NULL);
 }

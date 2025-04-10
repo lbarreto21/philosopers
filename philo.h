@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 14:59:01 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/09 19:36:39 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/09 20:25:27 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,6 @@ void		ft_usleep(long time, t_data *data);
 void		eat_action(t_philo *philo);
 void		take_forks(t_philo *philo, int side);
 void    	*monitor(void   *info);
-
+void		destroy_mutex(t_data *data);
+void		destroy_data(t_data *data);
 #endif

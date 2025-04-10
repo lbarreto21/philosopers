@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 15:26:12 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/02 21:18:00 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/09 20:24:34 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,26 @@ void	ft_usleep(long time, t_data *data)
 			//break;
 		usleep(200);
 	}
+}
+void	destroy_mutex(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	pthread_mutex_destroy(&data->death_mutex);
+	pthread_mutex_destroy(&data->eat_mutex);
+	pthread_mutex_destroy(&data->print_mutex);
+	pthread_mutex_destroy(&data->verify_mutex);
+	while (i < data->philos_amount)
+	{
+		pthread_mutex_destroy(&data->philos[i].philo_mutex);
+		pthread_mutex_destroy(&data->forks[i].fork_mutex);
+		i++;
+	}
+}
+
+void	destroy_data(t_data *data)
+{
+	free(data->forks);
+	free(data->philos);
 }
