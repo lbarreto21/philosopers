@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:55:04 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/11 22:11:05 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/12 04:26:18 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_philo	*init_philos(int philos_amount, t_fork *forks, t_data *data)
 {
-	t_philo *philos;
+	t_philo	*philos;
 	int		i;
 
 	i = -1;
@@ -63,6 +63,7 @@ t_fork	*init_forks(int forks_amount)
 	}
 	return (forks);
 }
+
 t_data	init_data(int argc, char **argv)
 {
 	t_data	data;
@@ -80,11 +81,8 @@ t_data	init_data(int argc, char **argv)
 	data.philos_sated = 0;
 	data.philos = init_philos(data.philos_amount, data.forks, &data);
 	pthread_mutex_init(&data.print_mutex, NULL);
-	pthread_mutex_init(&data.death_mutex, NULL);
 	pthread_mutex_init(&data.eat_mutex, NULL);
-	pthread_mutex_init(&data.verify_mutex, NULL);
 	data.start_time = get_start_time();
-	
 	data.end_time = FALSE;
 	return (data);
 }
@@ -96,7 +94,8 @@ void	init_threads(t_data *data)
 	i = 0;
 	while (i < data->philos_amount)
 	{
-		pthread_create(&data->philos[i].philo_thread, NULL, eating_routine, &data->philos[i]);
+		pthread_create(&data->philos[i].philo_thread, NULL, \
+		eating_routine, &data->philos[i]);
 		i++;
 	}
 	pthread_create(&data->monitor_thread, NULL, monitor, &data->philos[0]);

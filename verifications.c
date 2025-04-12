@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 14:35:21 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/03/26 16:23:47 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/12 04:29:02 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,3 @@ int	execute_verifications(int argc, char **argv)
 		return (0);
 	}
 }
-

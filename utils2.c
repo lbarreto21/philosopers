@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 15:26:12 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/09 20:24:34 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/12 04:30:27 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,26 @@ numbers_of_philosopers time_to_die time_to_eat time_to_sleep \
 void	print_message(int message, t_philo *philo)
 {
 	long	time;
-	
+
+	pthread_mutex_lock(&philo->data->eat_mutex);
+	if (philo->data->philo_dead == TRUE)
+	{
+		pthread_mutex_unlock(&philo->data->eat_mutex);
+		return ;
+	}
+	pthread_mutex_unlock(&philo->data->eat_mutex);
 	pthread_mutex_lock(&philo->data->print_mutex);
 	time = execution_time(philo->data->start_time);
-	if (message == TAKE_FORK && philo->data->philo_dead == 0)
+	if (message == TAKE_FORK)
 		printf("%ld philo %d has taken a fork\n", time, philo->philo_id);
-	if (message == EAT && philo->data->philo_dead == 0)
-		printf("%ld philo %d is eating\n", time, philo->philo_id);	
-	if (message == SLEEP && philo->data->philo_dead == 0)
+	if (message == EAT)
+		printf("%ld philo %d is eating\n", time, philo->philo_id);
+	if (message == SLEEP)
 		printf("%ld philo %d is sleeping\n", time, philo->philo_id);
-	if (message == THINK && philo->data->philo_dead == 0)
+	if (message == THINK)
 		printf("%ld philo %d is thinking\n", time, philo->philo_id);
-	if (message == DIE && philo->data->philo_dead == 0)
-	{
+	if (message == DIE)
 		printf("%ld philo %d died\n", time, philo->philo_id);
-		philo->data->philo_dead = 1;
-	}
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }
 
@@ -60,21 +64,14 @@ void	ft_usleep(long time, t_data *data)
 	(void)data;
 	start_time = get_start_time();
 	while ((get_start_time() - start_time) < time)
-	{
-		//if ()
-			//break;
 		usleep(200);
-	}
 }
+
 void	destroy_mutex(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	pthread_mutex_destroy(&data->death_mutex);
-	pthread_mutex_destroy(&data->eat_mutex);
-	pthread_mutex_destroy(&data->print_mutex);
-	pthread_mutex_destroy(&data->verify_mutex);
 	while (i < data->philos_amount)
 	{
 		pthread_mutex_destroy(&data->philos[i].philo_mutex);

@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 14:59:01 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/11 20:10:14 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/12 04:53:24 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 # define LONG_MAX 2147483647
 # define LONG_MIN -2147483648
 
-typedef struct s_fork t_fork;
-typedef struct s_data t_data;
-typedef struct s_philo t_philo;
+typedef struct s_fork	t_fork;
+typedef struct s_data	t_data;
+typedef struct s_philo	t_philo;
 
 enum	e_errors {
 	MUTEX_INIT = 2,
@@ -61,11 +61,9 @@ struct	s_data {
 	long			sleep_time;
 	int				meals_to_eat;
 	t_philo			*philos;
-	t_fork 			*forks;
+	t_fork			*forks;
 	pthread_mutex_t	print_mutex;
-	pthread_mutex_t	death_mutex;
-	pthread_mutex_t eat_mutex;
-	pthread_mutex_t	verify_mutex;
+	pthread_mutex_t	eat_mutex;
 	pthread_t		monitor_thread;
 	int				philos_sated;
 	int				philo_dead;
@@ -82,7 +80,6 @@ struct s_philo {
 	t_fork			*right_fork;
 	t_data			*data;
 };
-
 
 long		execution_time(long start_time);
 time_t		get_start_time(void);
@@ -104,7 +101,10 @@ void		execute_forks(t_philo *philo);
 void		ft_usleep(long time, t_data *data);
 void		eat_action(t_philo *philo);
 void		take_forks(t_philo *philo, int side);
-void    	*monitor(void   *info);
+void		*monitor(void *info);
 void		destroy_mutex(t_data *data);
 void		destroy_data(t_data *data);
+void		print_death(t_philo *philo);
+void		verify_death(t_data *data, int *i);
+
 #endif
