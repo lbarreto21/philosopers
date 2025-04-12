@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 14:59:01 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/09 20:25:27 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:10:14 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ struct	s_data {
 	pthread_t		monitor_thread;
 	int				philos_sated;
 	int				philo_dead;
+	int				end_time;
 };
 
 struct s_philo {

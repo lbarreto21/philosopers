@@ -6,7 +6,7 @@
 /*   By: lbarreto <lbarreto@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:45:16 by lbarreto          #+#    #+#             */
-/*   Updated: 2025/04/09 21:00:14 by lbarreto         ###   ########.fr       */
+/*   Updated: 2025/04/11 22:12:30 by lbarreto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	eat_action(t_philo *philo)
 	philo->meals_count++;
 	if(philo->meals_count == philo->data->meals_to_eat)
 		philo->data->philos_sated++;
+	if (philo->data->philos_sated == philo->data->philos_amount)
+		philo->data->end_time = TRUE;
 	pthread_mutex_unlock(&philo->data->eat_mutex);
 	print_message(EAT, philo);
 	ft_usleep(philo->data->eat_time, philo->data);
@@ -102,6 +104,6 @@ void	*eating_routine(void *data)
 		execute_action(philo, SLEEP);
 		execute_action(philo, THINK);
 	}
-	printf("final de thread philos sated: %d\n", philo->data->philos_sated);
+
 	return (NULL);
 }
